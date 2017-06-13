@@ -1,5 +1,7 @@
 class Admin::ProductsController < ApplicationController
 
+  # before_action :authenticate_user!
+
   def index
     @product = Product.all
   end
@@ -9,7 +11,7 @@ class Admin::ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new
+    @product = Product.new(product_params)
     if @product.save
       redirect_to admin_products_path
     else
@@ -21,7 +23,7 @@ class Admin::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:prodcut).permit(:title, :description, :price, :quantity)
+    params.require(:product).permit(:title, :description, :price, :quantity)
   end
 
 end
