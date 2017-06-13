@@ -1,6 +1,7 @@
 class Admin::ProductsController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :admin_require
 
   def index
     @product = Product.all
@@ -24,6 +25,12 @@ class Admin::ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:title, :description, :price, :quantity)
+  end
+
+  def admin_require
+    if !current_user.admin?
+      redirect_to "/"
+    end
   end
 
 end
