@@ -9,6 +9,7 @@ class Admin::ProductsController < ApplicationController
 
   def new 
     @product = Product.new
+    @photo = @product.build_photo
   end
 
   def create
@@ -22,6 +23,11 @@ class Admin::ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    if @product.photo.present?
+      @photo = @product.photo
+    else
+      @photo = @product.build_photo
+    end
   end
 
   def update
@@ -37,7 +43,13 @@ class Admin::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:title, :description, :price, :quantity)
+    params.require(:product).permit(:title, 
+                                    :description, 
+                                    :price, 
+                                    :quantity,
+                                    photo_attributes: [:image, :id])
+                                    # 配合先前在Product model中的設定，使用nested_attributes的設定方式，通過驗證。
+
   end
 
   def admin_require
