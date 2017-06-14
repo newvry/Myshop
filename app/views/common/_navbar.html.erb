@@ -16,7 +16,7 @@
 
         <li>
           <%= link_to "#" do %>
-            Cart <i class="fa fa-shopping-cart"> </i>（0）
+            Cart <i class="fa fa-shopping-cart"> </i> ( <%= render_cart_items_count(current_cart) %> )
           <% end %>  
         </li>
 
