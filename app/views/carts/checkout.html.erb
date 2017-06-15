@@ -37,7 +37,7 @@
     <h2>訂單資訊</h2>
 
     <div class="order-form">
-      <%= simple_form_for @order do |f| %>
+      <%= simple_form_for @order do |f| %> <%#@order會將表單送到orders_path%>
         <%= f.simple_fields_for :info do |c| %>
           <legend>訂購人</legend>
           <div class="form-group col-lg-6">
