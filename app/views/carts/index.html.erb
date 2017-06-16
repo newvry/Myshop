@@ -1,52 +1,55 @@
 <div class="row">
   <div class="col-md-12">
 
-    <h2> 購物車 </h2>
+    <%= link_to '清空購物車', clean_carts_path, method: :delete, class: "pull-right",
+                             data: { cofirm: "確定要清空購物車嗎？" }, style: "text-decoration: underline;" %>
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th colspan="2">商品資訊</th>
-          <th>單價</th>
-        </tr>
-      </thead>
-      <tbody>
+      <h2> 購物車 </h2>
 
-        <% current_cart.items.each do |product| %>
+      <table class="table table-bordered">
+        <thead>
           <tr>
-            <td>
-              <%= link_to product_path(product) do %>
-                <% if product.photo.present? %>
-                  <%= image_tag(product.photo.image.thumb.url, class: "thumbnail") %>
-                <% else %>
-                  <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-                <% end %>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to(product.title, product_path(product)) %>
-            </td>
-            <td>
-              <%= product.price %>
-            </td>
+            <th colspan="2">商品資訊</th>
+            <th>單價</th>
           </tr>
-        <% end %>
+        </thead>
+        <tbody>
 
-      </tbody>
-    </table>
+          <% current_cart.items.each do |product| %>
+            <tr>
+              <td>
+                <%= link_to product_path(product) do %>
+                  <% if product.photo.present? %>
+                    <%= image_tag(product.photo.image.thumb.url, class: "thumbnail") %>
+                  <% else %>
+                    <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to(product.title, product_path(product)) %>
+              </td>
+              <td>
+                <%= product.price %>
+              </td>
+            </tr>
+          <% end %>
 
-    <br>
+        </tbody>
+      </table>
 
-    <div class="total clearfix">
-      <span class="pull-right">
-         <span> 總計 <%= render_cart_total_price(current_cart) %> NTD </span>
-      </span>
-    </div>
+      <br>
 
-    <hr>
+      <div class="total clearfix">
+        <span class="pull-right">
+          <span> 總計 <%= render_cart_total_price(current_cart) %> NTD </span>
+        </span>
+      </div>
 
-    <div class="checkout clearfix">
-      <%= link_to("確認結賬", checkout_carts_path, method: :post, class: "btn btn-lg btn-danger pull-right") %>
-    </div>
+      <hr>
+
+      <div class="checkout clearfix">
+        <%= link_to("確認結賬", checkout_carts_path, method: :post, class: "btn btn-lg btn-danger pull-right") %>
+      </div>
   </div>
 </div>
