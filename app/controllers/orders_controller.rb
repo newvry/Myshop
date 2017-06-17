@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
     if @order.save
       @order.build_item_cache_from_cart(current_cart) #生成商品快照
       @order.calculate_total!(current_cart) #計算訂單總金額
+      current_cart.clean! #訂單產生後，購物車應該被清空
       redirect_to order_path(@order.token)
     else
       render "carts/checkout" #回到carts的checkout_action
