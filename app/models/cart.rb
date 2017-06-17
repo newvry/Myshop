@@ -23,7 +23,7 @@ class Cart < ApplicationRecord
   end
 
   def clean!
-    cart_item.destroy_all
+    cart_items.destroy_all
   end
 
   def find_cart_item(product)
